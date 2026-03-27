@@ -1,361 +1,432 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Portfolio</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4Q6Gf2aSP4eDXB8Miphtr37CMZZQ5oXLH2yaXMJ2w8e2ZtHTl7GptT4jmndRuHDT" crossorigin="anonymous">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
-    <style>
-      body{
-        background-color: #caffef;
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Portfolio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Mono:wght@400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #f5f4f0;
+      --surface: #ffffff;
+      --border: #e2e0d8;
+      --text-primary: #1a1917;
+      --text-secondary: #6b6963;
+      --text-muted: #a09d97;
+      --accent: #1a1917;
+      --tag-html-bg: #e8f0fe; --tag-html-fg: #1a56db;
+      --tag-css-bg: #fce8ff; --tag-css-fg: #7c3aed;
+      --tag-js-bg: #fef9e7; --tag-js-fg: #92400e;
+      --tag-boot-bg: #fde8ec; --tag-boot-fg: #9b1c1c;
+      --tag-wp-bg: #e8f5e9; --tag-wp-fg: #1b5e20;
+      --tag-net-bg: #e8eaf6; --tag-net-fg: #283593;
+    }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--bg);
+      color: var(--text-primary);
+      min-height: 100vh;
+      padding: 3rem 1.5rem 5rem;
+    }
+
+    .wrapper {
+      max-width: 760px;
+      margin: 0 auto;
+    }
+
+    /* Header */
+    header {
+      margin-bottom: 3.5rem;
+      padding-bottom: 2rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .eyebrow {
+      font-family: 'DM Mono', monospace;
+      font-size: 11px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 0.75rem;
+    }
+
+    h1 {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(2rem, 5vw, 2.8rem);
+      font-weight: 400;
+      line-height: 1.15;
+      color: var(--text-primary);
+      margin-bottom: 0.75rem;
+    }
+
+    .header-desc {
+      font-size: 15px;
+      color: var(--text-secondary);
+      font-weight: 300;
+      line-height: 1.6;
+    }
+
+    /* Section label */
+    .section-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 10.5px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 1rem;
+    }
+
+    /* Project list */
+    .project-list {
+      display: flex;
+      flex-direction: column;
+      gap: 1px;
+      background: var(--border);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      overflow: hidden;
+    }
+
+    .project-row {
+      display: grid;
+      grid-template-columns: 190px 1fr 44px;
+      align-items: center;
+      background: var(--surface);
+      transition: background 0.15s;
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .project-row:hover {
+      background: #fafaf8;
+    }
+
+    .project-name {
+      padding: 14px 18px;
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--text-primary);
+      font-family: 'DM Mono', monospace;
+      border-right: 1px solid var(--border);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .project-tags {
+      padding: 14px 16px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      align-items: center;
+    }
+
+    .tag {
+      font-size: 11px;
+      font-weight: 500;
+      font-family: 'DM Mono', monospace;
+      padding: 3px 8px;
+      border-radius: 4px;
+      letter-spacing: 0.02em;
+      white-space: nowrap;
+    }
+
+    .tag-html { background: var(--tag-html-bg); color: var(--tag-html-fg); }
+    .tag-css  { background: var(--tag-css-bg);  color: var(--tag-css-fg); }
+    .tag-js   { background: var(--tag-js-bg);   color: var(--tag-js-fg); }
+    .tag-boot { background: var(--tag-boot-bg); color: var(--tag-boot-fg); }
+    .tag-wp   { background: var(--tag-wp-bg);   color: var(--tag-wp-fg); }
+    .tag-net  { background: var(--tag-net-bg);  color: var(--tag-net-fg); }
+
+    .project-arrow {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-left: 1px solid var(--border);
+      height: 100%;
+      color: var(--text-muted);
+      font-size: 13px;
+      transition: color 0.15s, transform 0.15s;
+    }
+
+    .project-row:hover .project-arrow {
+      color: var(--text-primary);
+      transform: translateX(2px);
+    }
+
+    /* Group divider */
+    .group-header {
+      margin-top: 2.5rem;
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .group-title {
+      font-family: 'DM Mono', monospace;
+      font-size: 10.5px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      white-space: nowrap;
+    }
+
+    .group-line {
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+    }
+
+    /* Footer */
+    footer {
+      margin-top: 3.5rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid var(--border);
+      font-family: 'DM Mono', monospace;
+      font-size: 11px;
+      color: var(--text-muted);
+    }
+
+    /* Responsive */
+    @media (max-width: 600px) {
+      body { padding: 2rem 1rem 4rem; }
+
+      .project-row {
+        grid-template-columns: 130px 1fr 38px;
       }
 
-      table{
-        background-color: #22fefa!important;
-        margin:0 auto;
-        
-       
-        font-family: "Ubuntu", sans-serif;
-  font-weight: 600;
-        font-size: 1.3rem;
-        
-        letter-spacing:-1px;
-        
-      }
-      
-      
-      .centerd{
-        background-image: url("https://shardeum.org/wp-content/themes/shardeum/img/global/texture@2x.png");
-        background-size: contain;
+      .project-name {
+        font-size: 12px;
+        padding: 12px 12px;
       }
 
+      .project-tags { padding: 12px 10px; gap: 4px; }
 
-
-      table{
-       
-        border-radius: 20px;
-    
-    
-    height: 100%;
-
-    
-      }
-
-      table tr > td{
-          padding:5px 10px;
-      }
-
-      .badge{
-        font-size: 14px;
-        display: inline-block;
-        font-family: "Ubuntu", sans-serif;
-        vertical-align: middle!important;
-        letter-spacing:0px!important;
-      }
-
-      .firstcol{
-        background-color: #3042fc;
-        color:white;
-        background-image: url("https://shardeum.org/wp-content/themes/shardeum/img/global/texture@2x.png");
-        background-size: contain;
-        
-      }
-
-
-.lastcol{
-  background-color: #a4ff00;
-   background-image: url("https://shardeum.org/wp-content/themes/shardeum/img/global/texture@2x.png");
-        background-size: contain;
-  
-}
-
-      @media only screen and (max-width: 600px) {
-  .container {
-    width: 90%!important;
-    font-size: 1.2rem!important;
-  }
-
-  table{
-        
-        font-size: 0.8rem!important;
-        font-weight: 600;
-        letter-spacing:-1px;
-        
-      }
-
-      .firstcol{
-        font-size: 0.8rem!important;
-      }
-
-      .badge{
-        font-size: 10px;
-        display: inline-block;
-        vertical-align: middle!important;
-        letter-spacing:0px!important;
-      }
-}
-
-      </style>
+      .tag { font-size: 10px; padding: 2px 6px; }
+    }
+  </style>
 </head>
-
 <body>
-          <div style="
-          border:2px solid black!important;width:60%;box-shadow: 6px 8px 0px 0px rgba(0, 0, 0, 0.15);padding:0 0px!important;" class="container mt-4">
-    <table class="table table-striped"  style="width:100%;text-align: center;" >
-        
-        <tbody  class="">
-          <tr>
-           
-            <td class="firstcol">Itwebsky</td>
-            <td class="centerd"><span><span class="badge text-bg-primary">HTML</span>
-              <span class="badge text-bg-secondary">CSS</span>
-              <span class="badge text-bg-success">JS</span>
-              <span class="badge text-bg-danger">Bootstrap</span>
-              </span></td>
-            <td class="lastcol"><a type="button" class="btn" style="color:black;font-size: 12px;display:inline-block;
-              vertical-align: middle!important;font-weight: 700;color:#3042fc" href="https://itwebsky.com"><i class="bi bi-chevron-right"></i></a></td>
-          </tr>
+  <div class="wrapper">
 
-          <tr>
-           
-            <td class="firstcol">Rjtalents</td>
-            <td   class="centerd"><span><span class="badge text-bg-danger">Wordpress</span>
-              <span class="badge text-bg-primary">HTML</span>
-              <span class="badge text-bg-secondary">CSS</span>
-              <span class="badge text-bg-success">JS</span>
-              
-              </span></td>
-            <td class="lastcol"><a type="button" class="btn" style="color:black;font-size: 12px;display:inline-block;
-              vertical-align: middle!important;font-weight: 700;color:#3042fc" href="https://rjtalents.com"><i class="bi bi-chevron-right"></i></a></td>
-          </tr>
+    <header>
+      <p class="eyebrow">Web Developer</p>
+      <h1>Portfolio</h1>
+      <p class="header-desc">A collection of websites and landing pages built with HTML, CSS, JavaScript, Bootstrap, WordPress &amp; .NET.</p>
+    </header>
 
-          <tr>
-           
-            <td class="firstcol">Ittechcomputing</td>
-            <td  class="centerd"><span><span class="badge text-bg-primary">HTML</span>
-              <span class="badge text-bg-secondary">CSS</span>
-              <span class="badge text-bg-success">JS</span>
-              <span class="badge text-bg-danger">Bootstrap</span>
-              </span></td>
-            <td class="lastcol"><a type="button" class="btn" style="color:black;font-size: 12px;display:inline-block;
-              vertical-align: middle!important;font-weight: 700;color:#3042fc" href="https://ittechcomputing.com/"><i class="bi bi-chevron-right"></i></a></td>
-          </tr>
+    <!-- Featured Projects -->
+    <div class="section-label">Featured Projects</div>
+    <div class="project-list">
 
-          <tr>
-           
-            <td class="firstcol">CIO News</td>
-            <td  class="centerd"><span><span class="badge text-bg-primary">HTML</span>
-              <span class="badge text-bg-secondary">CSS</span>
-              <span class="badge text-bg-success">JS</span>
-              <span class="badge text-bg-danger">Wordpress</span>
-              </span></td>
-            <td class="lastcol"><a type="button" class="btn" style="color:black;font-size: 12px;display:inline-block;
-              vertical-align: middle!important;font-weight: 700;color:#3042fc" href="https://cionews.co.in/"><i class="bi bi-chevron-right"></i></a></td>
-          </tr>
+      <a class="project-row" href="https://itwebsky.com" target="_blank" rel="noopener">
+        <span class="project-name">Itwebsky</span>
+        <span class="project-tags">
+          <span class="tag tag-html">HTML</span>
+          <span class="tag tag-css">CSS</span>
+          <span class="tag tag-js">JS</span>
+          <span class="tag tag-boot">Bootstrap</span>
+        </span>
+        <span class="project-arrow">&#8599;</span>
+      </a>
 
-          <tr>
-           
-            <td class="firstcol">Landing Page</td>
-            <td  class="centerd"><span><span class="badge text-bg-primary">HTML</span>
-              <span class="badge text-bg-secondary">CSS</span>
-              <span class="badge text-bg-success">JS</span>
-              <span class="badge text-bg-danger">.NET</span>
-              </span></td>
-            <td class="lastcol"><a type="button" class="btn" style="color:black;font-size: 12px;display:inline-block;
-              vertical-align: middle!important;font-weight: 700;color:#3042fc" href="    https://ittechcomputing.com/Adobe/5-ways-to-power-up.aspx
-"><i class="bi bi-chevron-right"></i></a></td>
-          </tr>
+      <a class="project-row" href="https://rjtalents.com" target="_blank" rel="noopener">
+        <span class="project-name">Rjtalents</span>
+        <span class="project-tags">
+          <span class="tag tag-wp">WordPress</span>
+          <span class="tag tag-html">HTML</span>
+          <span class="tag tag-css">CSS</span>
+          <span class="tag tag-js">JS</span>
+        </span>
+        <span class="project-arrow">&#8599;</span>
+      </a>
 
-          <tr>
-           
-            <td class="firstcol">Landing Page</td>
-            <td  class="centerd"><span><span class="badge text-bg-primary">HTML</span>
-              <span class="badge text-bg-secondary">CSS</span>
-              <span class="badge text-bg-success">JS</span>
-              <span class="badge text-bg-danger">.NET</span>
-              </span></td>
-            <td class="lastcol"><a type="button" class="btn" style="color:black;font-size: 12px;display:inline-block;
-              vertical-align: middle!important;font-weight: 700;color:#3042fc" href="https://ittechcomputing.com/Freshworks/2024-it-top-10-priorities-of-it-leaders-unboxed/BA3EDE85-2865-4118-9572-C1892C1153F1"><i class="bi bi-chevron-right"></i></a></td>
-          </tr>
+      <a class="project-row" href="https://ittechcomputing.com/" target="_blank" rel="noopener">
+        <span class="project-name">Ittechcomputing</span>
+        <span class="project-tags">
+          <span class="tag tag-html">HTML</span>
+          <span class="tag tag-css">CSS</span>
+          <span class="tag tag-js">JS</span>
+          <span class="tag tag-boot">Bootstrap</span>
+        </span>
+        <span class="project-arrow">&#8599;</span>
+      </a>
 
-          <tr>
-           
-            <td class="firstcol">Landing Page</td>
-            <td  class="centerd"><span><span class="badge text-bg-primary">HTML</span>
-              <span class="badge text-bg-secondary">CSS</span>
-              <span class="badge text-bg-success">JS</span>
-              <span class="badge text-bg-danger">.NET</span>
-              </span></td>
-            <td class="lastcol"><a type="button" class="btn" style="color:black;font-size: 12px;display:inline-block;
-              vertical-align: middle!important;font-weight: 700;color:#3042fc" href="https://ittechcloudcenters.com/HPE/data-center-microsegmentation-acp-data-center-eng/BEF3D8AF-8C75-45C2-8039-5496002CB50A"><i class="bi bi-chevron-right"></i></a></td>
-          </tr>
-        
-          <tr>
-           
-            <td class="firstcol">Landing Page</td>
-            <td  class="centerd"><span><span class="badge text-bg-primary">HTML</span>
-              <span class="badge text-bg-secondary">CSS</span>
-              <span class="badge text-bg-success">JS</span>
-              <span class="badge text-bg-danger">.NET</span>
-              </span></td>
-            <td class="lastcol"><a type="button" class="btn" style="color:black;font-size: 12px;display:inline-block;
-              vertical-align: middle!important;font-weight: 700;color:#3042fc" href="https://ittechcomputing.com/Infosys/aeromexico-soars-into-the-digital-transfor-de/B5D78A5C-4509-4F02-B419-EC2871091D06"><i class="bi bi-chevron-right"></i></a></td>
-          </tr>
+      <a class="project-row" href="https://cionews.co.in/" target="_blank" rel="noopener">
+        <span class="project-name">CIO News</span>
+        <span class="project-tags">
+          <span class="tag tag-html">HTML</span>
+          <span class="tag tag-css">CSS</span>
+          <span class="tag tag-js">JS</span>
+          <span class="tag tag-wp">WordPress</span>
+        </span>
+        <span class="project-arrow">&#8599;</span>
+      </a>
 
-          <tr>
-           
-            <td class="firstcol">Cryptodatadownload</td>
-            <td  class="centerd"><span><span class="badge text-bg-primary">HTML</span>
-              <span class="badge text-bg-secondary">CSS</span>
-              <span class="badge text-bg-success">JS</span>
-              <span class="badge text-bg-danger">.NET</span>
-              </span></td>
-            <td class="lastcol"><a type="button" class="btn" style="color:black;font-size: 12px;display:inline-block;
-              vertical-align: middle!important;font-weight: 700;color:#3042fc" href="https://www.cryptodatadownload.com/
-"><i class="bi bi-chevron-right"></i></a></td>
-          </tr>
+      <a class="project-row" href="https://www.cryptodatadownload.com/" target="_blank" rel="noopener">
+        <span class="project-name">Cryptodatadownload</span>
+        <span class="project-tags">
+          <span class="tag tag-html">HTML</span>
+          <span class="tag tag-css">CSS</span>
+          <span class="tag tag-js">JS</span>
+          <span class="tag tag-net">.NET</span>
+        </span>
+        <span class="project-arrow">&#8599;</span>
+      </a>
 
-          <tr>
-           
-            <td class="firstcol">Landing Pages</td>
-            <td  class="centerd"><span><span class="badge text-bg-primary">HTML</span>
-              <span class="badge text-bg-secondary">CSS</span>
-              <span class="badge text-bg-success">JS</span>
-              <span class="badge text-bg-danger">.NET</span>
-              </span></td>
-            <td class="lastcol"><a type="button" class="btn" style="color:black;font-size: 12px;display:inline-block;
-              vertical-align: middle!important;font-weight: 700;color:#3042fc" href="https://nettechsupport.com/PagerDuty/enhancing-operational-resilience-en/37153D63-1E63-4ED0-B526-9E22A967A078
-"><i class="bi bi-chevron-right"></i></a></td>
-          </tr>
-
-
-          <tr>
-           
-            <td class="firstcol">Landing Pages</td>
-            <td  class="centerd"><span><span class="badge text-bg-primary">HTML</span>
-              <span class="badge text-bg-secondary">CSS</span>
-              <span class="badge text-bg-success">JS</span>
-              <span class="badge text-bg-danger">.NET</span>
-              </span></td>
-            <td class="lastcol"><a type="button" class="btn" style="color:black;font-size: 12px;display:inline-block;
-              vertical-align: middle!important;font-weight: 700;color:#3042fc" href="https://networkingclouds.com/four-ai-trends-driving-app-innovation/Australia/English/four-ai-trends-driving-app-innovation-en-au/0FCCE4C8-D80B-479E-AE55-DCD691DE01A2/
-"><i class="bi bi-chevron-right"></i></a></td>
-          </tr>
-
-          <tr>
-           
-            <td class="firstcol">Landing Pages</td>
-            <td  class="centerd"><span><span class="badge text-bg-primary">HTML</span>
-              <span class="badge text-bg-secondary">CSS</span>
-              <span class="badge text-bg-success">JS</span>
-              <span class="badge text-bg-danger">.NET</span>
-              </span></td>
-            <td class="lastcol"><a type="button" class="btn" style="color:black;font-size: 12px;display:inline-block;
-              vertical-align: middle!important;font-weight: 700;color:#3042fc" href="https://cloudnetstar.com/Paychex/hr-could-be-costing-you-more-than-you-think-en/0A044589-96C4-4278-9B42-69043F80AF4D
-"><i class="bi bi-chevron-right"></i></a></td>
-          </tr>
-
-          <tr>
-           
-            <td class="firstcol">Landing Pages</td>
-            <td  class="centerd"><span><span class="badge text-bg-primary">HTML</span>
-              <span class="badge text-bg-secondary">CSS</span>
-              <span class="badge text-bg-success">JS</span>
-              <span class="badge text-bg-danger">.NET</span>
-              </span></td>
-            <td class="lastcol"><a type="button" class="btn" style="color:black;font-size: 12px;display:inline-block;
-              vertical-align: middle!important;font-weight: 700;color:#3042fc" href="https://ittechcomputing.com/Keepit/intelligent-data-governancewhy-taking-gdpr/79127E53-1B85-4E13-BE0B-C362CBEDE871
-"><i class="bi bi-chevron-right"></i></a></td>
-          </tr>
-
-          <tr>
-           
-            <td class="firstcol">Landing Pages</td>
-            <td  class="centerd"><span><span class="badge text-bg-primary">HTML</span>
-              <span class="badge text-bg-secondary">CSS</span>
-              <span class="badge text-bg-success">JS</span>
-              <span class="badge text-bg-danger">.NET</span>
-              </span></td>
-            <td class="lastcol"><a type="button" class="btn" style="color:black;font-size: 12px;display:inline-block;
-              vertical-align: middle!important;font-weight: 700;color:#3042fc" href="https://ittechcomputing.com/Keepit/intelligent-data-governancewhy-taking-gdpr/79127E53-1B85-4E13-BE0B-C362CBEDE871
-"><i class="bi bi-chevron-right"></i></a></td>
-          </tr>
-
-
-          <tr>
-           
-            <td class="firstcol">Landing Pages</td>
-            <td  class="centerd"><span><span class="badge text-bg-primary">HTML</span>
-              <span class="badge text-bg-secondary">CSS</span>
-              <span class="badge text-bg-success">JS</span>
-              <span class="badge text-bg-danger">.NET</span>
-              </span></td>
-            <td class="lastcol"><a type="button" class="btn" style="color:black;font-size: 12px;display:inline-block;
-              vertical-align: middle!important;font-weight: 700;color:#3042fc" href="https://ittechcloudcenters.com/HPE/next-level-performance-for-eng/9BFAE1B8-E00B-4505-9736-3F81358FFF25
-"><i class="bi bi-chevron-right"></i></a></td>
-          </tr>
-
-          
-          <tr>
-           
-            <td class="firstcol">Landing Pages</td>
-            <td  class="centerd"><span><span class="badge text-bg-primary">HTML</span>
-              <span class="badge text-bg-secondary">CSS</span>
-              <span class="badge text-bg-success">JS</span>
-              <span class="badge text-bg-danger">.NET</span>
-              </span></td>
-            <td class="lastcol"><a type="button" class="btn" style="color:black;font-size: 12px;display:inline-block;
-              vertical-align: middle!important;font-weight: 700;color:#3042fc" href="https://itnetworkingwebs.com/Leapfin/the-state-of-accounting-automation-eng/96871E01-C996-4AEA-99EC-C47C8BBE7341
-"><i class="bi bi-chevron-right"></i></a></td>
-          </tr>
-
-           
-          <tr>
-           
-            <td class="firstcol">Landing Pages</td>
-            <td  class="centerd"><span><span class="badge text-bg-primary">HTML</span>
-              <span class="badge text-bg-secondary">CSS</span>
-              <span class="badge text-bg-success">JS</span>
-              <span class="badge text-bg-danger">.NET</span>
-              </span></td>
-            <td class="lastcol"><a type="button" class="btn" style="color:black;font-size: 12px;display:inline-block;
-              vertical-align: middle!important;font-weight: 700;color:#3042fc" href="
-https://ittechcomputing.com/Slack/why-slack-is-the-secret-recipe-from-de/472C0AE5-4287-43CA-85FB-F7C48F18EE1C
-"><i class="bi bi-chevron-right"></i></a></td>
-          </tr>
-
-          <tr>
-           
-            <td class="firstcol">Landing Pages</td>
-            <td  class="centerd"><span><span class="badge text-bg-primary">HTML</span>
-              <span class="badge text-bg-secondary">CSS</span>
-              <span class="badge text-bg-success">JS</span>
-              <span class="badge text-bg-danger">.NET</span>
-              </span></td>
-            <td class="lastcol"><a type="button" class="btn" style="color:black;font-size: 12px;display:inline-block;
-              vertical-align: middle!important;font-weight: 700;color:#3042fc" href="
-https://ittechcomputing.com/Shopify/shopify-editions-invierno-de-2025-es/B083E779-C418-4841-BB5B-C83D06B3F978
-"><i class="bi bi-chevron-right"></i></a></td>
-          </tr>
-
-
-        </tbody>
-      </table>
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js" integrity="sha384-j1CDi7MgGQ12Z7Qab0qlWQ/Qqz24Gc6BM0thvEMVjHnfYGF0rmFCozFSxQBxwHKO" crossorigin="anonymous"></script>
-  </body>
+    <!-- Landing Pages -->
+    <div class="group-header">
+      <span class="group-title">Landing Pages</span>
+      <span class="group-line"></span>
+    </div>
+    <div class="project-list">
+
+      <a class="project-row" href="https://ittechcomputing.com/Adobe/5-ways-to-power-up.aspx" target="_blank" rel="noopener">
+        <span class="project-name">Adobe — Power Up</span>
+        <span class="project-tags">
+          <span class="tag tag-html">HTML</span>
+          <span class="tag tag-css">CSS</span>
+          <span class="tag tag-js">JS</span>
+          <span class="tag tag-net">.NET</span>
+        </span>
+        <span class="project-arrow">&#8599;</span>
+      </a>
+
+      <a class="project-row" href="https://ittechcomputing.com/Freshworks/2024-it-top-10-priorities-of-it-leaders-unboxed/BA3EDE85-2865-4118-9572-C1892C1153F1" target="_blank" rel="noopener">
+        <span class="project-name">Freshworks — IT Leaders</span>
+        <span class="project-tags">
+          <span class="tag tag-html">HTML</span>
+          <span class="tag tag-css">CSS</span>
+          <span class="tag tag-js">JS</span>
+          <span class="tag tag-net">.NET</span>
+        </span>
+        <span class="project-arrow">&#8599;</span>
+      </a>
+
+      <a class="project-row" href="https://ittechcloudcenters.com/HPE/data-center-microsegmentation-acp-data-center-eng/BEF3D8AF-8C75-45C2-8039-5496002CB50A" target="_blank" rel="noopener">
+        <span class="project-name">HPE — Data Center</span>
+        <span class="project-tags">
+          <span class="tag tag-html">HTML</span>
+          <span class="tag tag-css">CSS</span>
+          <span class="tag tag-js">JS</span>
+          <span class="tag tag-net">.NET</span>
+        </span>
+        <span class="project-arrow">&#8599;</span>
+      </a>
+
+      <a class="project-row" href="https://ittechcomputing.com/Infosys/aeromexico-soars-into-the-digital-transfor-de/B5D78A5C-4509-4F02-B419-EC2871091D06" target="_blank" rel="noopener">
+        <span class="project-name">Infosys — Aeromexico</span>
+        <span class="project-tags">
+          <span class="tag tag-html">HTML</span>
+          <span class="tag tag-css">CSS</span>
+          <span class="tag tag-js">JS</span>
+          <span class="tag tag-net">.NET</span>
+        </span>
+        <span class="project-arrow">&#8599;</span>
+      </a>
+
+      <a class="project-row" href="https://nettechsupport.com/PagerDuty/enhancing-operational-resilience-en/37153D63-1E63-4ED0-B526-9E22A967A078" target="_blank" rel="noopener">
+        <span class="project-name">PagerDuty — Resilience</span>
+        <span class="project-tags">
+          <span class="tag tag-html">HTML</span>
+          <span class="tag tag-css">CSS</span>
+          <span class="tag tag-js">JS</span>
+          <span class="tag tag-net">.NET</span>
+        </span>
+        <span class="project-arrow">&#8599;</span>
+      </a>
+
+      <a class="project-row" href="https://networkingclouds.com/four-ai-trends-driving-app-innovation/Australia/English/four-ai-trends-driving-app-innovation-en-au/0FCCE4C8-D80B-479E-AE55-DCD691DE01A2/" target="_blank" rel="noopener">
+        <span class="project-name">AI Trends — App Innovation</span>
+        <span class="project-tags">
+          <span class="tag tag-html">HTML</span>
+          <span class="tag tag-css">CSS</span>
+          <span class="tag tag-js">JS</span>
+          <span class="tag tag-net">.NET</span>
+        </span>
+        <span class="project-arrow">&#8599;</span>
+      </a>
+
+      <a class="project-row" href="https://cloudnetstar.com/Paychex/hr-could-be-costing-you-more-than-you-think-en/0A044589-96C4-4278-9B42-69043F80AF4D" target="_blank" rel="noopener">
+        <span class="project-name">Paychex — HR Costs</span>
+        <span class="project-tags">
+          <span class="tag tag-html">HTML</span>
+          <span class="tag tag-css">CSS</span>
+          <span class="tag tag-js">JS</span>
+          <span class="tag tag-net">.NET</span>
+        </span>
+        <span class="project-arrow">&#8599;</span>
+      </a>
+
+      <a class="project-row" href="https://ittechcomputing.com/Keepit/intelligent-data-governancewhy-taking-gdpr/79127E53-1B85-4E13-BE0B-C362CBEDE871" target="_blank" rel="noopener">
+        <span class="project-name">Keepit — Data Governance</span>
+        <span class="project-tags">
+          <span class="tag tag-html">HTML</span>
+          <span class="tag tag-css">CSS</span>
+          <span class="tag tag-js">JS</span>
+          <span class="tag tag-net">.NET</span>
+        </span>
+        <span class="project-arrow">&#8599;</span>
+      </a>
+
+      <a class="project-row" href="https://ittechcloudcenters.com/HPE/next-level-performance-for-eng/9BFAE1B8-E00B-4505-9736-3F81358FFF25" target="_blank" rel="noopener">
+        <span class="project-name">HPE — Next Level Perf.</span>
+        <span class="project-tags">
+          <span class="tag tag-html">HTML</span>
+          <span class="tag tag-css">CSS</span>
+          <span class="tag tag-js">JS</span>
+          <span class="tag tag-net">.NET</span>
+        </span>
+        <span class="project-arrow">&#8599;</span>
+      </a>
+
+      <a class="project-row" href="https://itnetworkingwebs.com/Leapfin/the-state-of-accounting-automation-eng/96871E01-C996-4AEA-99EC-C47C8BBE7341" target="_blank" rel="noopener">
+        <span class="project-name">Leapfin — Accounting</span>
+        <span class="project-tags">
+          <span class="tag tag-html">HTML</span>
+          <span class="tag tag-css">CSS</span>
+          <span class="tag tag-js">JS</span>
+          <span class="tag tag-net">.NET</span>
+        </span>
+        <span class="project-arrow">&#8599;</span>
+      </a>
+
+      <a class="project-row" href="https://ittechcomputing.com/Slack/why-slack-is-the-secret-recipe-from-de/472C0AE5-4287-43CA-85FB-F7C48F18EE1C" target="_blank" rel="noopener">
+        <span class="project-name">Slack — Secret Recipe</span>
+        <span class="project-tags">
+          <span class="tag tag-html">HTML</span>
+          <span class="tag tag-css">CSS</span>
+          <span class="tag tag-js">JS</span>
+          <span class="tag tag-net">.NET</span>
+        </span>
+        <span class="project-arrow">&#8599;</span>
+      </a>
+
+      <a class="project-row" href="https://ittechcomputing.com/Shopify/shopify-editions-invierno-de-2025-es/B083E779-C418-4841-BB5B-C83D06B3F978" target="_blank" rel="noopener">
+        <span class="project-name">Shopify — Editions 2025</span>
+        <span class="project-tags">
+          <span class="tag tag-html">HTML</span>
+          <span class="tag tag-css">CSS</span>
+          <span class="tag tag-js">JS</span>
+          <span class="tag tag-net">.NET</span>
+        </span>
+        <span class="project-arrow">&#8599;</span>
+      </a>
+
+    </div>
+
+    <footer>
+      &copy; Portfolio — All links open in a new tab
+    </footer>
+
+  </div>
+</body>
 </html>
-
-
-
-
-
-
-
-
-
