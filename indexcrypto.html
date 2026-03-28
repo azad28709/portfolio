@@ -279,63 +279,8 @@ function buildCoins(f){
   }).join('');
 }
 
-var chartInst=null;
-function buildChart(){
-  var el=document.getElementById('priceChart');
-  if(!el) return;
-  var ctx=el.getContext('2d');
-  var labels=[];
-  var data=[];
-  for(var i=0;i<24;i++){labels.push(i+':00');}
-  for(var i=0;i<24;i++){data.push(Math.round(65000+Math.sin(i/3)*1400+(Math.random()-0.4)*700+i*110));}
-  if(chartInst){chartInst.destroy();chartInst=null;}
-  var grad=ctx.createLinearGradient(0,0,0,190);
-  grad.addColorStop(0,'rgba(124,110,247,0.35)');
-  grad.addColorStop(1,'rgba(124,110,247,0.02)');
-  chartInst=new Chart(ctx,{
-    type:'line',
-    data:{labels:labels,datasets:[{data:data,borderColor:'#7c6ef7',backgroundColor:grad,borderWidth:2,fill:true,tension:0.4,pointRadius:0,pointHoverRadius:5,pointHoverBackgroundColor:'#7c6ef7'}]},
-    options:{responsive:true,maintainAspectRatio:false,interaction:{mode:'index',intersect:false},
-      plugins:{legend:{display:false},tooltip:{backgroundColor:'#18181f',borderColor:'rgba(255,255,255,0.1)',borderWidth:1,titleColor:'#9090a8',bodyColor:'#f0f0f5',callbacks:{label:function(c){return ' $'+Math.round(c.raw).toLocaleString()}}}},
-      scales:{x:{grid:{color:'rgba(255,255,255,0.04)'},ticks:{color:'#5a5a70',font:{size:10},maxTicksLimit:8}},y:{grid:{color:'rgba(255,255,255,0.04)'},ticks:{color:'#5a5a70',font:{size:10},callback:function(v){return '$'+(v/1000).toFixed(0)+'k'}}}}}
-  });
-}
 
-function buildGauge(){
-  var c=document.getElementById('gauge');
-  if(!c) return;
-  var ctx=c.getContext('2d');
-  var W=c.width,H=c.height,cx=W/2,cy=H-8,r=H-22;
-  var segs=[
-    {color:'#f05a5a',from:Math.PI,to:Math.PI*1.2},
-    {color:'#f0a830',from:Math.PI*1.2,to:Math.PI*1.4},
-    {color:'#f0d040',from:Math.PI*1.4,to:Math.PI*1.6},
-    {color:'#a8d040',from:Math.PI*1.6,to:Math.PI*1.8},
-    {color:'#22d3a0',from:Math.PI*1.8,to:Math.PI*2}
-  ];
-  segs.forEach(function(s){
-    ctx.beginPath();
-    ctx.arc(cx,cy,r,s.from,s.to);
-    ctx.arc(cx,cy,r*0.52,s.to,s.from,true);
-    ctx.closePath();
-    ctx.fillStyle=s.color;
-    ctx.globalAlpha=0.85;
-    ctx.fill();
-    ctx.globalAlpha=1;
-  });
-  var angle=Math.PI+(72/100)*Math.PI;
-  ctx.beginPath();
-  ctx.moveTo(cx,cy);
-  ctx.lineTo(cx+Math.cos(angle)*r*0.7,cy+Math.sin(angle)*r*0.7);
-  ctx.strokeStyle='#ffffff';
-  ctx.lineWidth=2.5;
-  ctx.lineCap='round';
-  ctx.stroke();
-  ctx.beginPath();
-  ctx.arc(cx,cy,6,0,Math.PI*2);
-  ctx.fillStyle='#ffffff';
-  ctx.fill();
-}
+
 
 function buildTrending(){
   document.getElementById('trendList').innerHTML=trending.map(function(t,i){
